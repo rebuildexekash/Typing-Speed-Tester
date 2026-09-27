@@ -65,4 +65,4 @@ typespeed/
 
 ### Workflow Diagram
 
-![Workflow Diagram](workflow.drawio.png.png)
+![Workflow Diagram](workflow.drawio.png)
