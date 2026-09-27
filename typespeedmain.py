@@ -94,6 +94,11 @@ def check_typing(event):
 def submit():
     global currenttext
     global starttime
+    thought = text.get("1.0", "end-1c")
+    if (len(thought)==0):
+        messagebox.showwarning(title='WARNING',message='Please type something before submitting.')
+        return
+
     endtime = time.time()
     elapsed = endtime - starttime
     minutes = elapsed / 60
@@ -110,25 +115,33 @@ def submit():
     lettererror=0
     actualtext=currenttext.split()
     thoughttext=thought.split()
-    for i in range(min(len(actualtext), len(thoughttext))):
-        if actualtext[i]!=thoughttext[i]:
+
+    max_words = max(len(actualtext), len(thoughttext))
+    for i in range(max_words):
+        if i >= len(actualtext):
+            worderror += 1
+            lettererror += len(thoughttext[i])
+            continue
+        if i >= len(thoughttext):
+            worderror += 1
+            lettererror += len(actualtext[i])
+            continue
+        if actualtext[i] != thoughttext[i]:
             worderror+=1
-        else:
-            pass
-        for j in range(min(len(actualtext[i]),len(thoughttext[i]))):
-            if actualtext[i][j]!=thoughttext[i][j]:
-                lettererror+=1
-            else:
-                pass
-    lettererror += abs(len(actualtext[i]) - len(thoughttext[i]))
+        for j in range(min(len(actualtext[i]), len(thoughttext[i]))):
+            if actualtext[i][j] != thoughttext[i][j]:
+                lettererror += 1
+        lettererror += abs(len(actualtext[i]) - len(thoughttext[i]))
+
+
+    
     characters = len(currenttext.replace(" ", ""))
     wordaccuracy=(len(actualtext)-worderror)/len(actualtext)*100
     characteraccuracy=(characters-lettererror)/characters*100
     resultcharacteraccuracy.config(text=f"CHARACTER ACCURACY- {round(characteraccuracy,2)}")
     resultwordaccuracy.config(text=f"WORD  ACCURACY- {round(wordaccuracy,2)}")
     
-    print("your word accuracy: ",wordaccuracy)
-    print("your character accuracy: ",characteraccuracy)
+    
 
     
 

@@ -48,6 +48,9 @@ The program calculates the user's WPM, CPM, and time taken after the typing test
 ### 5. Accuracy Calculation
 The program calculates the user's word accuracy and character accuracy after the typing test.
 
+### 6. Input Validation and Error Handling
+The application checks whether the user has entered any text before submitting the typing test. If the input is empty, a warning message is displayed and the result calculation is stopped.
+
 ## Non-Functional Requirements
 
 ### 1. Usability
